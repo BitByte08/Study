@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+unsigned long long int f(unsigned long long int a,unsigned long long int b){
+    if(b==0){
+        return a;
+    }else{
+        return f(b,a%b);
+    }
+}
+int main(void){
+    unsigned long long int a,b;
+    int i;
+    cin >> a >> b;
+    cout << (a * b)/ f(a, b) << '\n';
+    return 0;
+}
