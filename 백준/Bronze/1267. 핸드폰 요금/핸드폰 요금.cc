@@ -3,24 +3,22 @@
 using namespace std;
 
 int main(void) {
-    int t,Y,M;
-    Y=M=0;
+    int y,m,i,t,num;
     cin >> t;
-    int i;
-    for (i=0;i<t;i++) {
-        int temp;
-        cin >> temp;
-        Y+=(temp/30+1);
-        M+=(temp/60+1);
+    y=m=0;
+    for(i=0;i<t;i++){
+        cin >> num;
+        y+=num/30+1;
+        m+=num/60+1;
     }
-    Y*=10;
-    M*=15;
-    if(Y==M){
-        cout << "Y M " << Y;
-    }else if(Y>M){
-        cout << "M " << M;
+    y*=10;
+    m*=15;
+    if(y<m){
+        cout << 'Y' << ' ' << y;
+    }else if(y>m){
+        cout << 'M' << ' ' << m;
     }else{
-        cout << "Y " << Y << "\n";
+        cout << 'Y' << ' ' << 'M' << ' ' << y;
     }
     return 0;
 }
