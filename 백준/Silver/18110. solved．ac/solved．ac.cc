@@ -2,22 +2,26 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 
 using namespace std;
 
+int comp(const void *a,const void *b){
+    return *(double*)a-*(double*)b;
+}
 int main(void){
     int n; cin >> n;
     if(n==0){
-        cout << 0;
+        printf("0");
         return 0;
     }
-    vector<double> v;
+    double v[n];
     for(int i=0;i<n;i++){
-        double temp; cin >> temp;
-        v.push_back(temp);
+        double temp; scanf("%lf",&temp);
+        v[i]=temp;
     }
-    sort(v.begin(),v.end());
-    double size=v.size();
+    qsort(v,n,sizeof(double),comp);
+    double size=n;
     double num=round(size*0.15);
     double resize=size-num*2;
     double res=0;
@@ -25,7 +29,7 @@ int main(void){
         res += v[i];
     }
     res = round(res/resize);
-    cout << res;
+    printf("%.0lf",res);
     return 0;
 }
 
