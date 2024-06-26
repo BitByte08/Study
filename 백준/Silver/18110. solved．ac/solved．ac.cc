@@ -10,7 +10,7 @@ int comp(const void *a,const void *b){
     return *(double*)a-*(double*)b;
 }
 int main(void){
-    int n; cin >> n;
+    int n; scanf("%d",&n);
     if(n==0){
         printf("0");
         return 0;
