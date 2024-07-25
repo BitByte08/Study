@@ -1,11 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <random>
+#include <bits/stdc++.h>
 #define ull unsigned long long
 using namespace std;
 
-ull Power(__int128 x, __int128 y, __int128 mod) { 
+ull Power(__int128 x, __int128 y, __int128 mod) { // ret = (x^y)%mod
     x %= mod;
     __int128 ret = 1;
     while(y > 0) {
@@ -70,10 +67,11 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
 
-    ull N; cin >> N;
+    ull N;
+    cin >> N;
     vector<ull> ans;
     while(N > 1) {
-        ull num = findnum(num);
+        ull num = findnum(N);
         ans.push_back(num);
         N /= num;
     }
