@@ -9,11 +9,7 @@ int n;
 int dfs(int x,int y) {
   int cnt=1;
   visited[x][y]=1;
-  for(auto i:d)
-    if(X<n && X>=0 && Y<n && Y>=0)
-      if(!visited[X][Y] && v[X][Y]==1) {
-        cnt += dfs(X,Y);
-      }
+  for(auto i:d) if(X<n && X>=0 && Y<n && Y>=0) if(!visited[X][Y] && v[X][Y]==1) cnt += dfs(X,Y);
   return cnt;
 }
 
@@ -25,11 +21,7 @@ int main(void) {
     for(int j=0;j<n;j++) v[i][j] = s[j]-'0';
   }
   int cnt = 0;
-  for(int i=0;i<n;i++) {
-    for(int j=0;j<n;j++) {
-      if(v[i][j]&&!visited[i][j])res.push_back(dfs(i,j));
-    }
-  }
+  for(int i=0;i<n;i++) for(int j=0;j<n;j++) if(v[i][j]&&!visited[i][j])res.push_back(dfs(i,j));
   cout << res.size() << '\n';
   sort(res.begin(), res.end());
   for(auto i:res) cout << i << '\n';
