@@ -1,48 +1,34 @@
 #include <iostream>
 #include <stack>
-#include <string>
-using namespace std;
-
 /*
-push X: 정수 X를 스택에 넣는 연산이다.
-pop: 스택에서 가장 위에 있는 정수를 빼고, 그 수를 출력한다. 만약 스택에 들어있는 정수가 없는 경우에는 -1을 출력한다.
-size: 스택에 들어있는 정수의 개수를 출력한다.
-empty: 스택이 비어있으면 1, 아니면 0을 출력한다.
-top: 스택의 가장 위에 있는 정수를 출력한다. 만약 스택에 들어있는 정수가 없는 경우에는 -1을 출력한다.
-*/
-
+1 X: 정수 X를 스택에 넣는다. (1 ≤ X ≤ 100,000)
+2: 스택에 정수가 있다면 맨 위의 정수를 빼고 출력한다. 없다면 -1을 대신 출력한다.
+3: 스택에 들어있는 정수의 개수를 출력한다.
+4: 스택이 비어있으면 1, 아니면 0을 출력한다.
+5: 스택에 정수가 있다면 맨 위의 정수를 출력한다. 없다면 -1을 대신 출력한다.
+ */
+using namespace std;
 int main(void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    stack<int> s;
-    int cmd;
-    int a;
-    cin >> a;
-    for (int i = 0; i < a; i++) {
-        cin >> cmd;
-        int b;
-        if (cmd == 1) {
-            cin >> b;
-            s.push(b);
-        } else if (cmd == 2) {
-            if(s.empty()==0){
-                cout << s.top() << '\n';
-                s.pop();
-            }else{
-                cout << -1 << '\n';
-            }
-        } else if (cmd == 4) {
-            cout << s.empty() << '\n';
-        } else if (cmd == 3) {
-            cout << s.size() << '\n';
-        } else if (cmd == 5) {
-            if(s.empty()==0){
-                cout << s.top() << '\n';
-            }else{
-                cout << -1 << '\n';
-            }
-        }
+  ios::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
+  int t; cin >> t;
+  stack<int> st;
+  for(int i=0;i<t;i++){
+    int n; cin >> n;
+    if(n==1) {
+      int temp; cin >> temp;
+      st.push(temp);
+    }else if(n==2) {
+      if(st.empty()) cout << -1 << '\n';
+      else {cout << st.top() << '\n'; st.pop();}
+    }else if(n==3) {
+      cout << st.size() << '\n';
+    }else if(n==4) {
+      cout << st.empty() << '\n';
+    }else if(n==5) {
+      if(st.empty()) cout << -1 << '\n';
+      else {cout << st.top() << '\n';}
     }
-    return 0;
+  }
+  return 0;
 }
