@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 #include <algorithm>
+#include <queue>
 using namespace std;
 vector visited(0,-1);
 vector<vector<int>> graph;
@@ -20,6 +20,8 @@ void bfs(int root) {
   }
 }
 int main(void) {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
   const int root = 1;
   int n; cin >> n;
   visited.resize(n+1,-1);
