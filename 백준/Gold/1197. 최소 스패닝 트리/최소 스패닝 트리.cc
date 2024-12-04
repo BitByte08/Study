@@ -7,11 +7,11 @@ int v[10001];
 int find_parent(int x);
 void union_parent(int x,int y);
 int main(void) {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
   int n,m; cin >> n >> m;
   vector<Pair> edges;
-  for (int i=1;i<=n;i++) {
-    v[i]=i;
-  }
+  for (int i=1;i<=n;i++) v[i]=i;
   for (int i=0;i<m;i++) {
     int a,b,cost; cin >> a >> b >> cost;
     edges.push_back({cost,{a,b}});
