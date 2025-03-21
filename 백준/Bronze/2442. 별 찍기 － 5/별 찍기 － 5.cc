@@ -1,19 +1,14 @@
 #include <iostream>
-
 using namespace std;
-
-int main(void){
-    int t;
-    cin >> t;
-    int i,j;
-    for(i=0;i<t;i++){
-        for(j=i;j<t-1;j++){
+int main() {
+    int n; cin >> n;
+    for (int i=1;i<=n;i++) {
+        for (int j=i;j<n;j++) {
             cout << ' ';
         }
-        for(j=0;j<=i+i;j++){
+        for (int j=0;j<i*2-1;j++) {
             cout << '*';
         }
         cout << endl;
     }
-    return 0;
 }
