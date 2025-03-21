@@ -1,30 +1,18 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
-
-int main(void){
-    int n;
-    int dp=0;
-    cin >> n;
-    if(n%5==0){
-        cout << n/5;
-        return 0;
-    }
-    while(n>0){
-        n-=3;
-        dp++;
-        if(n%5==0){
-            dp+=n/5;
-            cout << dp;
-            return 0;
-        }
-        else if(n==1||n==2){
-            cout << -1;
-            return 0;
-        }
-        else if(n==0){
-            cout << dp;
-            return 0;
+int main(void) {
+    vector<int> v{-1,-1,-1,1,-1,1};
+    int n; cin >> n;
+    for (int i=6;i<=n;i++) {
+        if (v[i-5]+1&&v[i-3]+1) {
+            v.push_back(min(v[i-5]+1,v[i-3]+1));
+        }else if (v[i-5]+1||v[i-3]+1) {
+            v.push_back(max(v[i-5]+1,v[i-3]+1));
+        }else {
+            v.push_back(-1);
         }
     }
+    cout << v[n];
+    return 0;
 }
