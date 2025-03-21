@@ -1,22 +1,18 @@
 #include <iostream>
-
+#include <algorithm>
+#define ll long long
 using namespace std;
-
-unsigned long long int f(unsigned long long int a,unsigned long long int b){
-    if(b==0){
-        return a;
-    }else{
-        return f(b,a%b);
-    }
+ll gcd(ll a, ll b) {
+    return b==0 ? a : gcd(b, a % b);
 }
-int main(void){
-    int n;
-    cin >> n;
-    unsigned long long int a,b;
-    int i;
-    for(i=0;i<n;i++) {
-        cin >> a >> b;
-        cout << (a * b)/ f(a, b) << '\n';
+ll lcm(ll a, ll b) {
+    return a * b / gcd(max(a,b), min(a,b));
+}
+int main() {
+    int n; cin >> n;
+    for (int i=0;i<n;i++) {
+        ll a, b; cin >> a >> b;
+        cout << lcm(a, b) << endl;
     }
     return 0;
 }
