@@ -1,19 +1,9 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#define TIME 1260
 using namespace std;
-
-int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-
-  int hh, mm; cin >> hh >> mm;
-
-  int startTime = 9 * 60,
-      submitTime = hh * 60 + mm;
-
-  int timeConsumed = submitTime - startTime;
-
-  cout << timeConsumed << "\n";
-
-  return 0;
+int main(void){
+    int h,m; cin >> h >> m;
+    m += (h+12)*60;
+    cout << m - TIME;
+    return 0;
 }
