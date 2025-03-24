@@ -1,19 +1,9 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
-
 using namespace std;
-
 int main(void) {
-    vector<int> arr;
-    int i,temp;
-    for(i=0;i<3;i++) {
-        cin >> temp;
-        arr.push_back(temp);
-    }
-    sort(arr.begin(),arr.end());
-    for(i=0;i<3;i++) {
-        cout << arr[i] << ' ';
-    }
+    int a,b,c; cin >> a >> b >> c;
+    cout << min(a,min(b,c)) << ' ';
+    cout << a + b + c - max(a,max(b,c)) - min(a,min(b,c)) << ' ';
+    cout << max(a,max(b,c));
     return 0;
 }
