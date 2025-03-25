@@ -1,46 +1,34 @@
 #include <iostream>
 #include <stack>
-#include <string>
 using namespace std;
-int main(void){
-    int tf=1;
-    string s;
-    while(1){
-        tf=1;
+int main(void) {
+    while (true) {
         stack<char> st;
-        getline(cin, s);
-        if((s[0]=='.'&&s.size()==1)){
-            break;
-        }
-        for(int i=0;i<=s.size();i++){
-            if(s[i]=='('||s[i]=='['){
-                st.push(s[i]);
-            }else if(s[i]==')'){
-                if(st.empty()){
-                    tf=0;
+        string s; getline(cin,s);
+        if (s.front() == '.') return 0;
+        for (int i=0;i<s.length()-1;i++) {
+            char c = s[i];
+            if (c=='('||c=='[') {
+                st.push(c);
+            }else if (c==')'||c==']') {
+                if (st.empty()) {
+                    st.push(c);
                     break;
                 }
-                if(st.top()!='('){
-                    tf=0;
-                    break;
-                }
-                st.pop();
-            }else if(s[i]==']'){
-                if(st.empty()){
-                    tf=0;
-                    break;
-                }
-                if(st.top()!='['){
-                    tf=0;
-                    break;
-                }
-                st.pop();
+                    if (c==']'&&st.top()=='[') {
+                        st.pop();
+                    }else if (c==')'&&st.top()=='(') {
+                        st.pop();
+                    }else {
+                        st.push(c);
+                        break;
+                    }
             }
         }
-        if(!st.empty()){
-            tf=0;
+        if (st.empty()) {
+            cout << "yes" << endl;
+        }else {
+            cout << "no" << endl;
         }
-        cout << (tf?"yes":"no") << '\n';
     }
-    return 0;
 }
