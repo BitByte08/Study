@@ -1,20 +1,15 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-
-int main() {
-    int n;
-    queue<int> Q;
-    cin >> n;
-    int i;
-    for(i=1;i<=n;i++){
-        Q.push(i);
+int main(void) {
+    queue<int> q;
+    int n; cin >> n;
+    for (int i=1;i<=n;i++) q.push(i);
+    while (q.size()>1) {
+        q.pop();
+        q.push(q.front());
+        q.pop();
     }
-    while(!Q.empty()&&Q.size()>1){
-        Q.pop();
-        Q.push(Q.front());
-        Q.pop();
-    }
-    cout << Q.front();
+    cout << q.front();
     return 0;
 }
