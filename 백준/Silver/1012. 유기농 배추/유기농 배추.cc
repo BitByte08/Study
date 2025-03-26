@@ -1,47 +1,49 @@
 #include <iostream>
-#include <cstring>
 #include <vector>
-
+#include <queue>
 using namespace std;
-int n,m;
-bool feld[51][51];
-bool visited[51][51];
-bool dfs(int y, int x) {
-    int dx[4] = {0, 0, 1, -1};
-    int dy[4] = {1, -1, 0, 0};
-    if (visited[y][x]) return false;
-    
-    visited[y][x] = true;
 
-    for (int i = 0; i < 4; i++) {
-        if (x+dx[i]>=0 &&y+dy[i]>= 0 && x+dx[i]<m&&y+dy[i]< n && feld[y+dy[i]][x+dx[i]])
-            dfs(y+dy[i], x+dx[i]);
-    }
-    return true;
-}
-int main(void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int t,i,j;
-    cin >> t;
-    while(t--){
-        int ca,res=0,x,y;
-        cin >> m >> n >> ca;
-        memset(feld, 0, sizeof(feld));
-        memset(visited, 0, sizeof(visited));
-
-        for(i=0;i<ca;i++){
-            cin >> x >> y;
-            feld[y][x] = 1;
-        }
-        for(i=0;i<n;i++){
-            for(j=0;j<m;j++){
-                if(feld[i][j]&&!visited[i][j])
-                    if (dfs(i, j)) res++;
+vector<vector<int>> visited(55,vector<int>(55,0));
+vector<vector<int>> matrix(55,vector<int>(55,0));
+int w,h;
+pair<int,int> d[4] = {{0,1},{1,0},{0,-1},{-1,0}};
+void bfs(int x, int y) {
+    queue<pair<int,int>> q;
+    q.push(make_pair(x,y));
+    while(!q.empty()) {
+        pair<int,int> p = q.front();
+        q.pop();
+        visited[p.first][p.second] = 1;
+        for (auto dp: d) {
+            int nx = p.first+dp.first;
+            int ny = p.second+dp.second;
+            if(nx>=0 && nx<w && ny>=0 && ny<h && !visited[nx][ny] && matrix[nx][ny]) {
+                q.push(make_pair(nx,ny));
+                visited[nx][ny] = 1;
             }
         }
-        cout << res << '\n';
+    }
+}
+
+int main(void) {
+    int t; cin >> t;
+    while (t--) {
+        int n,res=0; cin >> h >> w >> n;
+        fill(visited.begin(),visited.end(),vector<int>(55,0));
+        fill(matrix.begin(),matrix.end(),vector<int>(55,0));
+        for (int i=0;i<n;i++) {
+            int x,y; cin >> x >> y;
+            matrix[y][x] = 1;
+        }
+        for (int i=0;i<w;i++) {
+            for (int j=0;j<h;j++) {
+                if (matrix[i][j]&&!visited[i][j]) {
+                    bfs(i,j);
+                    res += 1;
+                }
+            }
+        }
+        cout << res << endl;
     }
     return 0;
 }
