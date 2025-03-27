@@ -6,7 +6,6 @@ int main(void) {
     int n, res=0; cin >> n;
     n=1000-n;
     for (int i : v) {
-        if (n==0) continue;
         res += n/i;
         n = n%i;
     }
