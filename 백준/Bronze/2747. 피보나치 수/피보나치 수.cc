@@ -1,16 +1,14 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
-
-int main(void){
-    int dp[46]={};
-    dp[0]=0;
-    dp[1]=1;
-    int n,i;
-    cin >> n;
-    for(i=2;i<=n;i++){
-        dp[i]=dp[i-1]+dp[i-2];
-    }
-    cout << dp[n];
+vector<int> memo{0,1,1};
+int fibo(int n) {
+    if (memo[n]) return memo[n];
+    return memo[n] = fibo(n-1) + fibo(n-2);
+}
+int main(void) {
+    int n; cin >> n;
+    memo.resize(n+1);
+    cout << fibo(n);
     return 0;
 }
