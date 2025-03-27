@@ -1,14 +1,15 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-int main() {
-  int n; cin >> n;
-  n=1000-n;
-  vector<int> v{500,100,50,10,5,1};
-  int res=0;
-  for(auto i : v) {
-    res += n/i;
-    n%=i;
-  }
-  cout << res;
+int main(void) {
+    vector v{500,100,50,10,5,1};
+    int n, res=0; cin >> n;
+    n=1000-n;
+    for (int i : v) {
+        if (n==0) continue;
+        res += n/i;
+        n = n%i;
+    }
+    cout << res;
+    return 0;
 }
