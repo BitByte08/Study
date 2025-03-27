@@ -1,43 +1,38 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <string.h>
-
 using namespace std;
-
 vector<int> v[1001];
-bool visited[1001];
-int work[1001];
-
-bool dfs(int n){
-    if(visited[n]) return false;
-    visited[n]=true;
-    for(auto next:v[n]){
-        if(!work[next]||dfs(work[next])){
-            work[next] = n;
+vector<bool> visited(1001,false);
+vector<int> room(1001,0);
+bool dfs(int n) {
+    for (int i=0;i<v[n].size();i++) {
+        int y = v[n][i];
+        if (visited[y]) continue;
+        visited[y] = true;
+        if (room[y]==0 || dfs(room[y])) {
+            room[y] = n;
             return true;
         }
     }
     return false;
 }
-int main(void){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int n,m; cin >> n >> m;
-    for(int i=1;i<=n;i++){
-        int o; cin >> o;
-        for(int j=0;j<o;j++){
-            int temp; cin >> temp;
-            v[i].push_back(temp);
+
+int main(void) {
+    int n,m,res=0; cin >> n >> m;
+    for (int i=1;i<=n;i++) {
+        int x; cin >> x;
+        for (int j=0;j<x;j++) {
+            int y; cin >> y;
+            v[i].push_back(y);
         }
     }
-    int res=0;
-    for(int i=1; i<=n;i++){
-        for(int j=0;j<2;j++) {
-            memset(visited, false, sizeof(visited));
-            if (dfs(i))res++;
-        }
+    for (int i=1;i<=n;i++) {
+        if (dfs(i)) res++;
+        fill(visited.begin(),visited.end(),false);
+    }
+    for (int i=1;i<=n;i++) {
+        if (dfs(i)) res++;
+        fill(visited.begin(),visited.end(),false);
     }
     cout << res;
     return 0;
