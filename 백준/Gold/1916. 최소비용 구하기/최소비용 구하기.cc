@@ -1,38 +1,40 @@
-#include <iostream>
 #include <vector>
 #include <queue>
-#include <algorithm>
-
-#define INF ~(1<<31)
+#include <iostream>
 using namespace std;
-int main(void) {
-  int n; cin >> n;
-  vector<vector<pair<int,int>>> v(n+1,vector<pair<int,int>>());
-  vector<int> dijkstra(n+1,INF);
-  int m; cin >> m;
-  for (int i=0;i<m;i++) {
-    int x,y,c; cin >> x >> y >> c;
-    v[x].push_back({y,c});
-  }
-  priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-  int start, end; cin >> start >> end;
-  pq.push({start,0});
-  dijkstra[start] = 0;
+# define INF 99999999
+vector<int> dijkstra(int start, int N, vector<pair<int, int> > graph[]) {
+  vector<int> dist(1001, INF);
+  priority_queue<pair<int, int>> pq;
+  dist[start] = 0;
+  pq.push({0, start});
   while (!pq.empty()) {
-    pair<int,int> cur = pq.top();
+    int cur_dist = -pq.top().first;
+    int cur_node = pq.top().second;
     pq.pop();
-    int node = cur.first;
-    int cost = cur.second;
-    if (dijkstra[node] < cost) continue;
-    for (auto i : v[node]) {
-      int nextNode = i.first;
-      int nextCost = i.second + cost;
-      if (dijkstra[nextNode] > nextCost) {
-        dijkstra[nextNode] = nextCost;
-        pq.push({nextNode,nextCost});
+    if(dist[cur_node] < cur_dist) continue;
+    for (int i = 0; i < graph[cur_node].size(); i++) {
+      int nxt_node = graph[cur_node][i].first;
+      int nxt_dist = cur_dist + graph[cur_node][i].second;
+      if (nxt_dist < dist[nxt_node]){
+        dist[nxt_node] = nxt_dist;
+        pq.push({-nxt_dist, nxt_node});
       }
     }
   }
-  cout << dijkstra[end];
+  return dist;
+}
+int main(void) {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
+  int n, m; cin >> n >> m;
+  vector<pair<int, int>> graph[1001];
+  for (int i = 0; i < m; i++) {
+    int x, y, z; cin >> x >> y >> z;
+    graph[x].push_back({y, z});
+  }
+  int start,end; cin >> start >> end;
+  vector<int> dist = dijkstra(start, n, graph);
+  cout << dist[end];
   return 0;
 }
