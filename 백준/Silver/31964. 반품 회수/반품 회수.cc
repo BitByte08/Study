@@ -1,24 +1,15 @@
 #include <iostream>
-#include <vector>
+#define MAX 3001
 using namespace std;
-
-int arr[100000001] = {};
+int X[MAX], T[MAX];
 int main(void) {
   int n; cin >> n;
-  vector<int> v;
-  for (int i=0;i<n;i++) {
-    int t; cin >> t;
-    v.push_back(t);
+  for (int i=0;i<n;i++) cin >> X[i];
+  for (int i=0;i<n;i++) cin >> T[i];
+  int sumT = max(X[n-1], T[n-1]);
+  for (int i=n-2;i>=0;i--) {
+    sumT += max(X[i+1] - X[i],T[i]-sumT);
   }
-  for (auto i : v) {
-    int t; cin >> t;
-    arr[i] = t;
-  }
-  int res = v.back();
-  if (res > arr[res]) res -= 1;
-  for (int i=v.back();i>=0;i--) {
-    res += max(arr[i] - res, 1);
-  }
-  cout << res;
+  cout << sumT+X[0] << endl;
   return 0;
 }
