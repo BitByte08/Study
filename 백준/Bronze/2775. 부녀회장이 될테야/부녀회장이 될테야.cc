@@ -1,21 +1,22 @@
 #include <iostream>
+#include <vector>
+// v[I][j] = v[I][j-1] + v[I-1][j]
 using namespace std;
-int main(void){
-    int t,i,j;
-    int dp[15][15]={};
-    for(i=1;i<=14;i++){
-        dp[0][i]=i;
+int main() {
+  vector<vector<int>> v(15, vector<int>(15,0));
+  for (int i=1;i<15;i++) {
+    v[i][1] = 1;
+    v[0][i] = i;
+  }
+  for (int i=1;i<15;i++) {
+    for (int j=2;j<15;j++) {
+      v[i][j] = v[i-1][j] + v[i][j-1];
     }
-    for(i=1;i<=14;i++){
-        for(j=1;j<=14;j++){
-            dp[i][j]=dp[i][j-1]+dp[i-1][j];
-        }
-    }
-    cin >> t;
-    for(i=0;i<t;i++){
-        int a,b;
-        cin >> a >> b;
-        cout << dp[a][b] << '\n';
-    }
-    return 0;
+  }
+  int t; cin >> t;
+  while (t--) {
+    int k,n; cin >> k >> n;
+    cout << v[k][n] << endl;
+  }
+  return 0;
 }
