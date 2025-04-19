@@ -1,24 +1,14 @@
 #include <iostream>
 #include <vector>
-
 using namespace std;
-
-int main(void){
-    int n;
-    vector<int> tree;
-    cin >> n;
-    tree.push_back(n);
-    while(tree.back()>=5){
-        tree.push_back(tree.back()-5);
-    }
-    while(tree.back()<n){
-        if(tree.back()%2==0) break;
-        tree.pop_back();
-    }
-    while(tree.back()>=2){
-        tree.push_back(tree.back()-2);
-    }
-    if(tree.back()!=0) cout << -1;
-    else cout << tree.size()-1;
-    return 0;
+int main(void) {
+  vector<int> dp = {-1, -1, 1, -1, 2, 1};
+  int n; cin >> n;
+  for (int i=6;i<=n;i++) {
+    if ((dp[i-5]+1)&&(dp[i-2]+1)) dp.push_back(min(dp[i-5]+1, dp[i-2]+1));
+    else if ((dp[i-5]+1)||(dp[i-2]+1)) dp.push_back(max(dp[i-5]+1, dp[i-2]+1));
+    else dp.push_back(-1);
+  }
+  cout << dp[n];
+  return 0;
 }
