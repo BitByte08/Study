@@ -1,15 +1,11 @@
+#include <cstdint>
 #include <iostream>
-#include <vector>
+#define MOD 1000000
 using namespace std;
-int main() {
-    long long n;
-    cin >> n;
-    vector<long long> dp;
-    dp.push_back(0);
-    dp.push_back(1);
-    for(int i = 0;i<1500000;i++){
-        dp.push_back((dp[i]+dp[i+1])%1000000);
-    }
+int dp[1500000] = {0,1};
+int main(void){
+    for (int i=2;i<1500000;i++) dp[i]=(dp[i-1]+dp[i-2])%MOD;
+    int64_t n; cin >> n;
     cout << dp[n%1500000];
     return 0;
 }
