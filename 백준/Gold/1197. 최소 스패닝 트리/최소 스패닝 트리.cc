@@ -16,6 +16,8 @@ void union_root(int x, int y){
     if(x!=y) parent[y] = x;
 }
 int main(void){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
     vector<PAIR> e_list;
     vector<PAIR> res;
     int v,e; cin >> v >> e;
