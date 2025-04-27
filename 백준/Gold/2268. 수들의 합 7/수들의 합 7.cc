@@ -3,6 +3,7 @@
 #include <cmath>
 #define ll long long
 using namespace std;
+
 void update(vector<ll> &tree, int node, int start, int end, int index, ll diff) {
     if (index < start || index > end) return;
 
