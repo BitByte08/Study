@@ -1,29 +1,18 @@
 #include <iostream>
-#include <string>
-
 using namespace std;
-
-int sum(int n){
-    int ret=n;
-    for(int i=0;n>=10;i++){
-        ret+=n%10;
-        n/=10;
-    }
-    return ret+n%10;
+int fn1(int n){
+    if(n<10) return n;
+    return n%10 + fn1(n/10);
 }
 int main(void){
-    int i,n;
-    int arr[1000001]={};
-    for(i=0;i<=1000000;i++){
-        int temp = sum(i);
-        if(temp>1000000){
-            break;
-        }
-        if(arr[temp]==0) {
-            arr[temp] = i;
+    int n; cin >> n;
+    for(int i=0;i<n;i++){
+        int temp = i + fn1(i);
+        if(temp == n) {
+            cout << i;
+            return 0;
         }
     }
-    cin >> n;
-    cout << arr[n];
+    cout << 0;
     return 0;
 }
