@@ -1,26 +1,23 @@
 #include <iostream>
 #include <queue>
-#include <functional>
 using namespace std;
-
-int main() {
-    ios::sync_with_stdio(false);
+int main(void){
+    ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    priority_queue<int,vector<int>,greater<int>> pq;
+    priority_queue<int, vector<int>, greater<int>> pq;
     int t; cin >> t;
     while(t--){
-        int temp; cin >> temp;
-        if(temp==0) {
-            if(pq.empty()){
-                cout << 0 << '\n';
-                continue;
+        int n; cin >> n;
+        if(n==0){
+            if(pq.empty()) cout << "0\n";
+            else{
+                cout << pq.top() << '\n';
+                pq.pop();
             }
-            cout << pq.top() << '\n';
-            pq.pop();
-            continue;
+        } else {
+            pq.push(n);
         }
-        pq.push(temp);
     }
     return 0;
 }
