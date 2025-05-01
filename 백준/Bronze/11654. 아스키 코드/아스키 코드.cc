@@ -1,10 +1,6 @@
 #include <iostream>
-
 using namespace std;
-
-int main(void) {
-    char c;
-    cin >> c;
-    cout << (int)c;
-    return 0;
+int main(void){
+    uint8_t n; cin >> n;
+    cout << (int)n;
 }
