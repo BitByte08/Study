@@ -1,53 +1,57 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <queue>
-#include <string.h>
-
+#include <stack>
 using namespace std;
 
-vector<int> v[1001];
-queue<int> q;
-bool visited[1001];
-int N,M,V;
+vector<vector<int>> v(1001,vector<int>(0));
+int n, s;
 
-void dfs(int s){
-    cout << s << ' ';
-    visited[s]= true;
-    for (int i = 0; i < v[s].size(); i++) {
-        if (visited[v[s][i]] == 0) {
-            dfs(v[s][i]);
+vector<int> dfs();
+vector<int> bfs();
+
+int main() {
+    int t; cin >> n >> t >> s;
+    for (int i=0;i<t;i++) {
+        int a,b; cin >> a >> b;
+        v[a].push_back(b);
+        v[b].push_back(a);
+    }
+    for (auto i : dfs()) cout << i << ' ';
+    cout << endl;
+    for (auto i : bfs()) cout << i << ' ';
+}
+
+vector<int> dfs() {
+    vector<int> ans;
+    vector<int> visited(1001,0);
+    stack<int> st;
+    st.push(s);
+    while (!st.empty()) {
+        int cur = st.top(); st.pop();
+        if (!visited[cur]) {
+            visited[cur] = 1;
+            ans.push_back(cur);
+            sort(v[cur].begin(), v[cur].end(), greater<int>());
+            for (auto i : v[cur]) if (!visited[i]) st.push(i);
         }
     }
+    return ans;
 }
-void bfs(int s) {
-    visited[s] = 1;
+vector<int> bfs() {
+    vector<int> ans;
+    vector<int> visited(1001,0);
+    queue<int> q;
     q.push(s);
     while (!q.empty()) {
-        int now = q.front();
-        cout << now << ' ';
-        q.pop();
-        for (int i = 0; i < v[now].size(); i++) {
-            if (visited[v[now][i]] == 0) {
-                q.push(v[now][i]);
-                visited[v[now][i]] = 1;
-            }
+        int cur = q.front(); q.pop();
+        if (!visited[cur]) {
+            visited[cur] = 1;
+            ans.push_back(cur);
+            sort(v[cur].begin(), v[cur].end());
+            for (auto i : v[cur]) if (!visited[i]) q.push(i);
         }
     }
-}
-int main(void){
-    cin >> N >> M >> V;
-    for(int i=0;i<M;i++){
-        int a,b; cin >> a >> b;
-        v[b].push_back(a);
-        v[a].push_back(b);  
-    }
-    for(int i=1;i<=N;i++){
-        sort(v[i].begin(),v[i].end());
-    }
-    dfs(V);
-    cout << '\n';
-    memset(visited,false,sizeof(visited));
-    bfs(V);
-    return 0;
+    return ans;
 }
