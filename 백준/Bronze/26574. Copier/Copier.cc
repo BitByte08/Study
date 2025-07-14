@@ -1,12 +1,7 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
 using namespace std;
-
-int main() {
-  int n; cin >> n;
-  for (int i = 0; i < n; i++) {
-    int temp; cin >> temp;
-    cout << temp << ' ' << temp << ' ';
-  }
-  return 0;
+int main(void){
+    int t; cin >> t;
+    while(t--){int temp; cin >> temp; cout << temp << ' ' << temp << '\n';}
+    return 0;
 }
