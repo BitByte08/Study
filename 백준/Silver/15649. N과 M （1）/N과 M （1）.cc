@@ -1,31 +1,27 @@
+#include <cstring>
 #include <iostream>
-
+#include <vector>
 using namespace std;
-
-int visited[9]={};
-int arr[9]={};
-void dfs(int n, int m, int cnt);
-int main(void){
-    int n,m;
-    cin >> n >> m;
-    dfs(n,m,0);
-    return 0;
+vector<int> ans;
+vector<int> used;
+void backtracking(int start, int max, int bound);
+int main(void) {
+    int n, m; cin >> n >> m;
+    used.resize(n+1, false);
+    backtracking(1, n, m);
 }
-void dfs(int n, int m, int cnt){
-    if(cnt==m){
-        for(int i=0;i<m;i++){
-            cout << arr[i] << ' ';
-        }
+void backtracking(int start, int max, int bound) {
+    if (ans.size() == bound) {
+        for (int i : ans) cout << i << ' ';
         cout << '\n';
         return;
-    }else{
-        for(int i=1;i<=n;i++){
-            if(visited[i]==0){
-                visited[i]=1;
-                arr[cnt]=i;
-                dfs(n,m,cnt+1);
-                visited[i]=0;
-            }
-        }
+    }
+    for (int i = 1; i <= max; i++) {
+        if (used[i]) continue;
+        used[i] = true;
+        ans.push_back(i);
+        backtracking(i, max, bound);
+        ans.pop_back();
+        used[i] = false;
     }
 }
