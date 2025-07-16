@@ -1,33 +1,31 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
-bool visited[9];
-int arr[9];
-int num[9];
-int N,M;
-void dfs(int m) {
-    if(m==M) {
-        for(int i=0;i<M;i++) {
-            cout << arr[i] << ' ';
-        }
-        cout << '\n';
+vector<int> binding;
+vector<int> ans;
+vector<int> used(9, false);
+void backtracking( int max, int bound);
+int main(void) {
+    int n, m; cin >> n >> m;
+    binding.resize(n+1);
+    for (int i=1;i<=n;i++) cin >> binding[i];
+    sort(binding.begin(), binding.end());
+    backtracking(n,m);
+    return 0;
+}
+void backtracking(int max, int bound) {
+    if (ans.size() == bound) {
+        for (int i : ans) cout << binding[i] << " ";
+        cout <<'\n';
         return;
     }
-    for(int i=0;i<N;i++) {
-        if(!visited[i]) {
-            arr[m]=num[i];
-            visited[i]=true;
-            dfs(m+1);
-            visited[i]=false;
-        }
+    for (int i=1;i<=max;i++) {
+        if (used[i]) continue;
+        used[i] = true;
+        ans.push_back(i);
+        backtracking(max,bound);
+        used[i] = false;
+        ans.pop_back();
     }
-}
-int main(void) {
-    cin >> N >> M;
-    for(int i=0;i<N;i++) {
-        cin >> num[i];
-    }
-    sort(num,num+N);
-    dfs(0);
-    return 0;
 }
