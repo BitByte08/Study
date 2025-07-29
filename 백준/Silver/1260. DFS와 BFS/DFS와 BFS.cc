@@ -1,50 +1,47 @@
 #include <algorithm>
 #include <iostream>
-#include <queue>
-#include <stack>
 #include <vector>
+#include <stack>
+#include <queue>
 using namespace std;
 int main(void) {
-    int n, m; cin >> n >> m;
-    int start; cin >> start;
-    vector<vector<int>> v(n+1);
+    int n, m, v; cin >> n >> m >> v;
+    vector<vector<int>> graph(n+1, vector<int>(0));
     for (int i=0;i<m;i++) {
         int a,b; cin >> a >> b;
-        v[a].push_back(b);
-        v[b].push_back(a);
+        graph[a].push_back(b);
+        graph[b].push_back(a);
     }
-    vector<int> visited1(n+1, false);
+    vector<int> visited(n+1, 0);
+    vector<int> ans;
     stack<int> s;
-    vector<int> ans1;
-    s.push(start);
+    s.push(v);
     while (!s.empty()) {
         int now = s.top(); s.pop();
-        if (!visited1[now]) {
-            visited1[now] = true;
-            ans1.push_back(now);
-            sort(v[now].begin(), v[now].end(), greater<int>());
-            for (auto i : v[now]) {
-                if (!visited1[i]) s.push(i);
-            }
+        if (visited[now]) continue;
+        visited[now] = 1;
+        ans.push_back(now);
+        sort(graph[now].begin(), graph[now].end(), greater<int>());
+        for (auto x : graph[now]) {
+            if (!visited[x]) s.push(x);
         }
     }
-    for (auto x : ans1) cout << x << " ";
+    for (auto x : ans) cout << x << " ";
     cout << '\n';
-    vector<int> visited2(n+1,false);
+    fill(visited.begin(), visited.end(), 0);
+    ans.clear();
     queue<int> q;
-    vector<int> ans2;
-    q.push(start);
+    q.push(v);
     while (!q.empty()) {
         int now = q.front(); q.pop();
-        if (!visited2[now]) {
-            visited2[now] = true;
-            ans2.push_back(now);
-            sort(v[now].begin(), v[now].end());
-            for (auto i : v[now]) {
-                if (!visited2[i]) q.push(i);
-            }
+        if (visited[now]) continue;
+        visited[now] = 1;
+        ans.push_back(now);
+        sort(graph[now].begin(), graph[now].end());
+        for (auto x : graph[now]) {
+            if (!visited[x]) q.push(x);
         }
     }
-    for (auto x : ans2) cout << x << " ";
+    for (auto x : ans) cout << x << " ";
     return 0;
 }
