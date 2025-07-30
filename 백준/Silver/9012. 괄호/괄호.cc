@@ -1,19 +1,20 @@
 #include <iostream>
 #include <stack>
 using namespace std;
-int main(void){
+int main(void) {
     int t; cin >> t;
-    while(t--){
-        stack<char> st;
+    while (t--) {
         string s; cin >> s;
-        for(char i : s){
-            if(st.empty()) st.push(i);
-            else if(i=='(') st.push('(');
-            else if((i==')')&&(st.top()=='(')) st.pop();
-            else st.push(i);
+        stack<char> st;
+        for (auto &c : s) {
+            if (c == '(') {
+                st.push(c);
+            }else if (c == ')') {
+                if (!st.empty()) st.pop();
+                else { st.push(c); break; }
+            }
         }
-        if(st.empty()) cout << "YES" << '\n';
-        else cout << "NO" << '\n';
+        cout << (st.empty()?"YES":"NO") << '\n';
     }
     return 0;
 }
