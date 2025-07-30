@@ -3,16 +3,15 @@
 using namespace std;
 int main(void) {
     stack<int> st;
-    int n; cin >> n;
-    for (int i=0;i<n;i++) {
-        int temp; cin >> temp;
-        if (temp) st.push(temp);
+    int t; cin >> t;
+    while (t--) {
+        int n; cin >> n;
+        if (n) st.push(n);
         else st.pop();
     }
     int sum = 0;
     while (!st.empty()) {
-        sum += st.top();
-        st.pop();
+        sum += st.top(); st.pop();
     }
     cout << sum;
     return 0;
