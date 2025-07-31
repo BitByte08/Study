@@ -1,19 +1,26 @@
 #include <iostream>
+#include <vector>
 #include <queue>
 using namespace std;
 int main(void) {
+    vector<int> v;
     queue<int> q;
-    int n,m; cin >> n >> m;
+    int n,k; cin >> n >> k;
     for (int i=1;i<=n;i++) q.push(i);
-    cout << '<';
-    while (q.size()>1) {
-        for (int i=0;i<m-1;i++) {
+    int cnt = 1;
+    while (!q.empty()) {
+        if (cnt == k){
+            v.push_back(q.front());
+            q.pop();
+            cnt = 0;
+        }else {
             q.push(q.front());
             q.pop();
         }
-        cout << q.front() << ", ";
-        q.pop();
+        cnt++;
     }
-    cout << q.front() << '>';
+    cout << '<' << v.front();
+    for (int i=1;i<v.size();i++) cout << ", " << v[i];
+    cout << '>';
     return 0;
 }
