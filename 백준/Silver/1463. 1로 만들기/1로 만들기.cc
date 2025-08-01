@@ -1,17 +1,15 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-int main(void){
-    vector<int> v(10000000,0);
+vector<int32_t> dp(1000000, 0);
+int main(void) {
+    dp[0] = dp[1] = 0;
     int n; cin >> n;
     for (int i=2;i<=n;i++) {
-        v[i] = v[i-1]+1;
-        if (i%2==0) {
-            v[i] = min(v[i],v[i/2]+1);
-        }
-        if (i%3==0) {
-            v[i] = min(v[i],v[i/3]+1);
-        }
+        dp[i] = dp[i-1] + 1;
+        if (!(i%3)) dp[i] = (min(dp[i],dp[i/3]+1));
+        if (!(i%2)) dp[i] = (min(dp[i], dp[i/2]+1));
     }
-    cout << v[n];
+    cout<<dp[n];
+    return 0;
 }
