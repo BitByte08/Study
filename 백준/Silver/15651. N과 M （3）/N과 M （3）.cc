@@ -1,23 +1,21 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-vector<int> ans;
-vector<int> used(9, false);
-void backtracking(int start, int max, int bound);
+void backtrack(int level);
+int n, m;
 int main(void) {
-    int n, m; cin >> n >> m;
-    backtracking(1,n,m);
-    return 0;
+    cin >> n >> m;
+    backtrack(0);
 }
-void backtracking(int start, int max, int bound) {
-    if (ans.size() == bound) {
-        for (int i : ans) cout << i << " ";
-        cout <<'\n';
+void backtrack(int level) {
+    static vector<int> ans(m, 0);
+    if (level == m) {
+        for (auto i : ans) cout << i << " ";
+        cout << '\n';
         return;
     }
-    for (int i=1;i<=max;i++) {
-        ans.push_back(i);
-        backtracking(i+1,max,bound);
-        ans.pop_back();
+    for (int i = 1; i <= n; i++) {
+            ans[level] = i;
+            backtrack(level + 1);
     }
 }
