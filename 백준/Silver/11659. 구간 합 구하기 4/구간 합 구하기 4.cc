@@ -1,18 +1,18 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL); cout.tie(NULL);
-  vector<int> v;
-  int n,t; cin >> n >> t;
-  int temp; cin >> temp; v.push_back(temp);
-  for (int i = 1; i < n; i++) {
-    cin >> temp; v.push_back(v[i-1] + temp);
-  }
-  while (t--) {
-    int a,b; cin >> a >> b;
-    cout << v[b-1] - v[a-2] << '\n';
-  }
-  return 0;
+int main(void) {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    int n,m; cin >> n >> m;
+    vector<int> v(n+1,0);
+    for (int i=1;i<=n;i++) {
+        cin >> v[i];
+        v[i] += v[i-1];
+    }
+    for (int i=0;i<m;i++) {
+        int a,b; cin >> a >> b;
+        cout << v[b] - v[a-1] << '\n';
+    }
+    return 0;
 }
